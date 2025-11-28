@@ -6,7 +6,7 @@
 /*   By: cel-hajj <cel-hajj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 21:28:10 by cel-hajj          #+#    #+#             */
-/*   Updated: 2025/11/28 00:32:27 by cel-hajj         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:20:19 by cel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
-void	ft_putnbr_base(unsigned int nbr, char *base);
+int		ft_putunbr_base(unsigned int nbr, char *base);
+int		ft_putulnbr_base(unsigned long nbr, char *base);
+int		ft_putptr(void *p);
 
 /* ******************************** */
 /* Strings And Strings Manipulation */
@@ -67,11 +69,11 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 /* Files Manipulation */
 /* ****************** */
 
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
+int		ft_putstr_fd(char *s, int fd);
+int		ft_putnbr_fd(int n, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putunbr_fd(unsigned int n, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putunbr_fd(unsigned int n, int fd);
 
 /* ***************** */
 /* Memory Allocation */

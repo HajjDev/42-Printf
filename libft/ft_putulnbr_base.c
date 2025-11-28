@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_putulnbr_base.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cel-hajj <cel-hajj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:36:29 by cel-hajj          #+#    #+#             */
-/*   Updated: 2025/11/28 00:43:51 by cel-hajj         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:27:21 by cel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ static char	*ft_reverse(char *reversed_nb, int i, char *to_print_nb)
 	return (to_print_nb);
 }
 
-static void	convert(int signed_nbr, int base_length, char *base)
+static int	convert(unsigned long signed_nbr, int base_length, char *base)
 {
 	char			reversed_nb[32];
 	char			to_print_nb[32];
 	int				i;
-	unsigned int	nbr;
+	unsigned long	nbr;
 
 	i = 0;
 	nbr = signed_nbr;
@@ -71,9 +71,10 @@ static void	convert(int signed_nbr, int base_length, char *base)
 	reversed_nb[i] = '\0';
 	ft_reverse(reversed_nb, i, to_print_nb);
 	write(1, to_print_nb, i);
+	return (i);
 }
 
-void	ft_putnbr_base(unsigned int nbr, char *base)
+int	ft_putulnbr_base(unsigned long nbr, char *base)
 {
 	int	valid_base;
 	int	base_length;
@@ -82,11 +83,12 @@ void	ft_putnbr_base(unsigned int nbr, char *base)
 	if (valid_base)
 	{
 		if (nbr == 0)
-			write(1, &base[0], 1);
+			return (write(1, &base[0], 1));
 		else
 		{
 			base_length = ft_strlen(base);
-			convert(nbr, base_length, base);
+			return (convert(nbr, base_length, base));
 		}
 	}
+	return (-1);
 }

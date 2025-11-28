@@ -6,7 +6,7 @@
 #    By: cel-hajj <cel-hajj@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/28 00:13:06 by cel-hajj          #+#    #+#              #
-#    Updated: 2025/11/28 00:52:56 by cel-hajj         ###   ########.fr        #
+#    Updated: 2025/11/28 10:17:34 by cel-hajj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,14 @@ RM = rm -f
 LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
 
-all: $(LIBFT) $(NAME)
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFTDIR)
+all: $(NAME)
 	
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCLUDES) -I $(LIBFTDIR) -c $< -o $@
 
 $(NAME): $(OBJS)
+	$(MAKE) -C $(LIBFTDIR) all
+	cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: cel-hajj <cel-hajj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 00:00:14 by cel-hajj          #+#    #+#             */
-/*   Updated: 2025/11/28 00:57:04 by cel-hajj         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:20:41 by cel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,26 @@ int	ft_parseinput(va_list *args, const char *s)
 
 int	ft_handleinput(char format, va_list *args)
 {
+	char	*hex;
+
+	hex = "0123456789abcdef";
 	if (format == 'c')
-		ft_putchar_fd(va_arg(*args, int), 1);
+		return (ft_putchar_fd(va_arg(*args, int), 1));
 	else if (format == 's')
-		ft_putstr_fd(va_arg(*args, char *), 1);
-	else if (format == 'd')
-		ft_putnbr_fd(va_arg(*args, int), 1);
-	else if (format == 'i')
-		ft_putnbr_fd(va_arg(*args, int), 1);
+		return (ft_putstr_fd(va_arg(*args, char *), 1));
+	else if (format == 'd' || format == 'i')
+		return (ft_putnbr_fd(va_arg(*args, int), 1));
 	else if (format == 'u')
-		ft_putunbr_fd(va_arg(*args, unsigned int), 1);
-	else if (format == 'x')
-		ft_putnbr_base(va_arg(*args, unsigned int), "0123456789abcdef");
-	else if (format == 'X')
-		ft_putnbr_base(va_arg(*args, unsigned int), "0123456789ABCDEF");
+		return (ft_putunbr_fd(va_arg(*args, unsigned int), 1));
+	else if (format == 'x' || format == 'X')
+	{
+		if (format == 'X')
+			hex = "0123456789ABCDEF";
+		return (ft_putunbr_base(va_arg(*args, unsigned int), hex));
+	}
+	else if (format == 'p')
+		return (ft_putptr(va_arg(*args, void *)));
 	else if (format == '%')
-		ft_putchar_fd('%', 1);
-	return (1);
+		return (ft_putchar_fd('%', 1));
+	return (-1);
 }
