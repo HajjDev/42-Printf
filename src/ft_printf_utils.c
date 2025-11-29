@@ -5,12 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cel-hajj <cel-hajj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/28 00:00:14 by cel-hajj          #+#    #+#             */
-/*   Updated: 2025/11/28 11:20:41 by cel-hajj         ###   ########.fr       */
+/*   Created: 2025/11/29 11:53:01 by cel-hajj          #+#    #+#             */
+/*   Updated: 2025/11/29 12:06:39 by cel-hajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	ft_handlepercent(size_t *i, int *printed, va_list *args, const char *s)
+{
+	int		result;
+	size_t	size;
+
+	size = ft_strlen(s);
+	if ((*i) + 1 < size)
+	{
+		result = ft_handleinput(s[(*i) + 1], args);
+		if (result == -1)
+		{
+			ft_putchar_fd('%', 1);
+			ft_putchar_fd(s[(*i) + 1], 1);
+			(*printed) += 2;
+			(*i)++;
+		}
+		else
+		{
+			(*printed) += result;
+			(*i)++;
+		}
+	}
+	else
+	{
+		ft_putchar_fd('%', 1);
+		(*printed)++;
+	}
+}
 
 int	ft_parseinput(va_list *args, const char *s)
 {
@@ -23,11 +52,8 @@ int	ft_parseinput(va_list *args, const char *s)
 	size = ft_strlen(s);
 	while (i < size)
 	{
-		if (s[i] == '%' && s[i + 1])
-		{
-			printed += ft_handleinput(s[i + 1], args);
-			i++;
-		}
+		if (s[i] == '%')
+			ft_handlepercent(&i, &printed, args, s);
 		else
 		{
 			ft_putchar_fd(s[i], 1);
